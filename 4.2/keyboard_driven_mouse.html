@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        #mouse {
+            display: inline-block;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        #mouse:focus {
+            outline: 1px dashed black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>Click on the mouse and move it with arrow keys.</p>
+
+    <pre id="mouse">
+ _   _
+(q\_/p)
+ /. .\
+=\_t_/=   __
+ /   \   (
+((   ))   )
+/\) (/\  /
+\  Y  /-'
+ nn^nn
+</pre>
+
+
+    <script>
+        document.body.style.overflow = "hidden"
+        mouse.style.position = "absolute"
+        mouse.onclick = (e) => { mouse.tabIndex = 1 }
+        mouse.addEventListener("focus", (event) => { mouse.addEventListener("keydown", onKey) })
+        mouse.addEventListener("blur", (e) => { mouse.removeEventListener("keydown", onKey) })
+        mouse.style.left = mouse.offsetLeft + "px"
+        mouse.style.top = mouse.offsetTop + "px"
+        function onKey(arrow) {
+            switch (arrow.which) {
+                case 37:
+                    console.log((parseInt(mouse.style.left) - mouse.offsetWidth) + "px")
+                    mouse.style.left = (parseInt(mouse.style.left) - mouse.offsetWidth) + "px"
+                    break;
+                case 38:
+                    console.log((parseInt(mouse.style.top) - mouse.offsetHeight) + "px")
+                    mouse.style.top = (parseInt(mouse.style.top) - mouse.offsetHeight) + "px"
+                    break;
+                case 39:
+                    console.log((parseInt(mouse.style.left) + mouse.offsetWidth) + "px")
+                    mouse.style.left = (parseInt(mouse.style.left) + mouse.offsetWidth) + "px"
+                    break;
+                case 40:
+                    console.log((parseInt(mouse.style.top) + mouse.offsetHeight) + "px")
+                    mouse.style.top = (parseInt(mouse.style.top) + mouse.offsetHeight) + "px"
+                    break;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

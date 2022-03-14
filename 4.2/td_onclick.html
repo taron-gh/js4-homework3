@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background-color: lightgray;
+        }
+
+        th {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        td {
+            width: 150px;
+            white-space: nowrap;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+        .nw {
+            background-color: #999;
+        }
+
+        .n {
+            background-color: #03f;
+            color: #fff;
+        }
+
+        .ne {
+            background-color: #ff6;
+        }
+
+        .w {
+            background-color: #ff0;
+        }
+
+        .c {
+            background-color: #60c;
+            color: #fff;
+        }
+
+        .e {
+            background-color: #09f;
+            color: #fff;
+        }
+
+        .sw {
+            background-color: #963;
+            color: #fff;
+        }
+
+        .s {
+            background-color: #f60;
+            color: #fff;
+        }
+
+        .se {
+            background-color: #0c3;
+            color: #fff;
+        }
+
+        textarea {
+            display: block;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            object-fit: contain;
+            overflow: auto;
+            outline: none;
+            resize: none;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <p>Click on a table cell to edit it. Press OK or CANCEL when you finish.</p>
+
+    <table id="bagua-table">
+        <tr>
+            <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
+        </tr>
+        <tr>
+            <td class="nw"><strong>Northwest</strong>
+                <br>Metal
+                <br>Silver
+                <br>Elders
+            </td>
+            <td class="n"><strong>North</strong>
+                <br>Water
+                <br>Blue
+                <br>Change
+            </td>
+            <td class="ne"><strong>Northeast</strong>
+                <br>Earth
+                <br>Yellow
+                <br>Direction
+            </td>
+        </tr>
+        <tr>
+            <td class="w"><strong>West</strong>
+                <br>Metal
+                <br>Gold
+                <br>Youth
+            </td>
+            <td class="c"><strong>Center</strong>
+                <br>All
+                <br>Purple
+                <br>Harmony
+            </td>
+            <td class="e"><strong>East</strong>
+                <br>Wood
+                <br>Blue
+                <br>Future
+            </td>
+        </tr>
+        <tr>
+            <td class="sw"><strong>Southwest</strong>
+                <br>Earth
+                <br>Brown
+                <br>Tranquility
+            </td>
+            <td class="s"><strong>South</strong>
+                <br>Fire
+                <br>Orange
+                <br>Fame
+            </td>
+            <td class="se"><strong>Southeast</strong>
+                <br>Wood
+                <br>Green
+                <br>Romance
+                <!-- <textarea></textarea> -->
+
+            </td>
+        </tr>
+
+    </table>
+
+
+    <script>
+        // const ta = document.getElementsByTagName("textarea")[0]
+        // ta.style.height = ta.parentElement.clientHeight + "px"
+        // console.log(ta.parentElement.clientHeight);
+        // console.log(ta.style.height)
+        let table = document.getElementById('bagua-table');
+        let isConfirmed = true;
+        table.addEventListener("click", function (event) {
+            const elem = event.target;
+            if (elem.classList.length > 0 && isConfirmed) {
+                const buttonHandler = (event) => {
+                    if (event.target.textContent == "OK") {
+                        elem.innerHTML = textarea.value
+                        isConfirmed = true
+                    } else if (event.target.textContent == "CANCEL") {
+                        elem.innerHTML = lastInner
+                        isConfirmed = true
+                    }
+                    elem.style.padding = "10px"
+                }
+
+
+                const lastInner = elem.innerHTML;
+                elem.innerHTML = ""
+                elem.style.padding = "0"
+                elem.style.position = "relative"
+                const textarea = document.createElement("textarea")
+                textarea.style.height = elem.clientHeight + "px"
+                textarea.textContent = lastInner
+                elem.append(textarea)
+                const okButton = document.createElement("button")
+                okButton.textContent = "OK"
+                okButton.style.position = "absolute"
+                okButton.style.left = "0px"
+                okButton.style.top = elem.clientHeight + "px"
+                elem.append(okButton)
+                const cancelButton = document.createElement("button")
+                cancelButton.textContent = "CANCEL"
+                cancelButton.style.position = "absolute"
+                cancelButton.style.left = okButton.offsetWidth + "px"
+                cancelButton.style.top = elem.clientHeight + "px"
+                elem.append(cancelButton)
+                isConfirmed = false
+                okButton.addEventListener("click", buttonHandler)
+                cancelButton.addEventListener("click", buttonHandler)
+
+
+
+
+
+            }
+        })
+
+
+
+    </script>
+
+</body>
+
+</html>

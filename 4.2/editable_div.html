@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .view,
+        .edit {
+            height: 150px;
+            width: 400px;
+            font-family: sans-serif;
+            font-size: 14px;
+            display: block;
+        }
+
+        .view {
+            /* padding + border = 3px */
+            padding: 2px;
+            border: 1px solid black;
+        }
+
+        .edit {
+            /* replace padding with border (still 3px not to shift the contents) */
+            border: 3px solid blue;
+            padding: 0px;
+        }
+
+        .edit:focus {
+            /* remove focus border in Safari */
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul>
+        <li>Click the div to edit.</li>
+        <li>Enter or blur saves the result.</li>
+    </ul>
+
+    HTML is allowed.
+
+    <div id="view" class="view">Text</div>
+
+    <script>
+        const view = document.getElementById("view")
+        const edit = document.createElement("textarea")
+        edit.classList.add("edit")
+        view.addEventListener("click", function(event){
+            edit.value = view.textContent
+            view.replaceWith(edit)
+            edit.focus()
+        })
+        edit.addEventListener("blur", function(event){
+            view.textContent = edit.value
+            edit.replaceWith(view)
+        })
+    </script>
+
+</body>
+
+</html>
