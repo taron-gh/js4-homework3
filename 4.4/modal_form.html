@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #prompt-form {
+            display: inline-block;
+            padding: 5px 5px 5px 70px;
+            width: 200px;
+            border: 1px solid black;
+            background: white url(https://en.js.cx/clipart/prompt.png) no-repeat left 5px;
+            vertical-align: middle;
+        }
+
+        #prompt-form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        #prompt-form-container:before {
+            display: inline-block;
+            height: 100%;
+            content: '';
+            vertical-align: middle;
+        }
+
+        #prompt-form input[name="text"] {
+            display: block;
+            margin: 5px;
+            width: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Click the button below</h1>
+    <button id="open-button">Click to show the form</button>
+
+    <div id="prompt-form-container">
+        <form id="prompt-form">
+            <div id="prompt-message">Enter something...
+                <br>Please..
+            </div>
+            <input name="text" type="text">
+            <input type="submit" value="Ok">
+            <input type="button" name="cancel" value="Cancel">
+        </form>
+    </div>
+
+    <script>
+        const promptContainer = document.getElementById("prompt-form-container")
+        promptContainer.style.backgroundColor = "rgba(211, 211, 211, 0.4)"
+        const openButton = document.getElementById("open-button")
+        const form = document.getElementById("prompt-form")
+        form.elements[0].onkeydown = function (event) {
+            if (event.which == 9) {
+                form.elements[1].focus()
+                return false
+            }
+
+        }
+        form.elements[form.elements.length - 1].onkeydown = function (event) {
+            if (event.which == 9) {
+                form.elements[0].focus()
+                return false;
+            }
+        }
+        document.body.onkeydown = function (e) {
+            if (e.which == 27) {
+                promptContainer.hidden = true
+                alert("You entered: " + form.text.value)
+            }
+        }
+        document.body.addEventListener("submit", function (event) {
+            alert("You entered: " + form.text.value)
+        })
+        promptContainer.hidden = true
+        openButton.onclick = function (event) { promptContainer.hidden = false; form.text.focus() }
+
+    </script>
+</body>
+
+</html>
